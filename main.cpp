@@ -1,11 +1,10 @@
+#include "include/DynamicList.h"
+#include "include/Snake.h"
 #include <array>
 #include <cstdlib>
 #include <iostream>
 #include <ncurses.h>
 #include <random>
-#include "include/DynamicList.h"
-#include "include/Snake.h"
-
 
 // need to sample the key faster than the movement of the sname
 
@@ -39,12 +38,12 @@ int main() {
   int play = true;
   int score = 0;
 
-  Snake snake(5,10,10);
+  Snake snake(6, 10, 10); // testing
 
   while (play) {
 
     if (addFood) {
-      mvprintw(food[1], food[0], "X");
+      mvprintw(food.at(1), food.at(0), "X");
       addFood = false;
     }
 
@@ -53,19 +52,15 @@ int main() {
       ch = getch();
       switch (ch) {
       case KEY_UP:
-        // currentPosition[1]--;
         direction = {0, -1};
         break;
       case KEY_DOWN:
-        // currentPosition[1]++;
         direction = {0, 1};
         break;
       case KEY_LEFT:
-        // currentPosition[0]--;
         direction = {-1, 0};
         break;
       case KEY_RIGHT:
-        // currentPosition[0]++;
         direction = {1, 0};
         break;
       case 27: // escape to stop
@@ -73,26 +68,29 @@ int main() {
       }
     }
 
-    std::array<int, 2> currentPosition = coords.getHead();
-    currentPosition = {currentPosition[0] + direction[0],
-                       currentPosition[1] + direction[1]};
+    std::array<int, 2> currentPosition{coords.getHead()};
+    currentPosition = {currentPosition.at(0) + direction.at(0),
+                       currentPosition.at(1) + direction.at(1)};
+    std::array<int, 2> oldPosition_real{snake.move(direction.at(0), direction.at(1))}; // testing
 
     bool grow = false;
 
-    //  with boundary checks
-    if (not(currentPosition[0] < 0 || currentPosition[0] >= screenWidth ||
-            currentPosition[1] < 0 || currentPosition[1] >= screenHeight)) {
-      std::array<int, 2> oldPosition = coords.getTail();
+    if (not(currentPosition.at(0) < 0 || 
+        currentPosition.at(0) >= screenWidth ||
+        currentPosition.at(1) < 0 ||
+        currentPosition.at(1) >= screenHeight)) {
+      std::array<int, 2> oldPosition{coords.getTail()};
       coords.pushFront(currentPosition);
       if (coords.getIndexInArray(food) == -1) {
         coords.popBack();
       } else {
         food = {xDist(gen), yDist(gen)};
         addFood = true;
+        snake.grow(1); // testing
         score += 1;
       }
-      mvprintw(oldPosition[1], oldPosition[0], " ");
-      mvprintw(currentPosition[1], currentPosition[0], "O");
+      mvprintw(oldPosition.at(1), oldPosition.at(0), " ");
+      mvprintw(currentPosition.at(1), currentPosition.at(0), "O");
       refresh();
     }
 
