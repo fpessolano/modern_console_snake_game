@@ -39,6 +39,8 @@ int main() {
   int play = true;
   int score = 0;
 
+  Snake snake(5,10,10);
+
   while (play) {
 
     if (addFood) {

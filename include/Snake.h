@@ -10,6 +10,8 @@ private:
   int minimumSize;
 
 public:
+  Snake(int size, int starting_x, int starting_y, bool vertical);
+
   Snake(int size, int starting_x, int starting_y);
 
   Snake(int size);
