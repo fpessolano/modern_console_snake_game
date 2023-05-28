@@ -1,12 +1,13 @@
-#include "DynamicList.h"
 #include <array>
 #include <cstdlib>
 #include <iostream>
 #include <ncurses.h>
 #include <random>
+#include "include/DynamicList.h"
+#include "include/Snake.h"
+
 
 // need to sample the key faster than the movement of the sname
-
 
 int main() {
   initscr();
@@ -33,10 +34,17 @@ int main() {
   }
 
   std::array<int, 2> direction{1, 0};
+  std::array<int, 2> food{yDist(gen), xDist(gen)};
   bool addFood = true;
   int play = true;
+  int score = 0;
 
   while (play) {
+
+    if (addFood) {
+      mvprintw(food[1], food[0], "X");
+      addFood = false;
+    }
 
     int ch{0};
     for (int i = 0; i < 3; i++) {
@@ -67,36 +75,29 @@ int main() {
     currentPosition = {currentPosition[0] + direction[0],
                        currentPosition[1] + direction[1]};
 
-    //  with boundary checks
-    if (currentPosition[0] < 0 || currentPosition[0] >= screenWidth ||
-        currentPosition[1] < 0 || currentPosition[1] >= screenHeight) {
-      if (currentPosition[0] < 0) {
-        currentPosition[0] = 0;
-      } else if (currentPosition[0] >= screenWidth) {
-        currentPosition[0] = screenWidth - 1;
-      }
+    bool grow = false;
 
-      if (currentPosition[1] < 0) {
-        currentPosition[1] = 0;
-      } else if (currentPosition[1] >= screenHeight) {
-        currentPosition[1] = screenHeight - 1;
+    //  with boundary checks
+    if (not(currentPosition[0] < 0 || currentPosition[0] >= screenWidth ||
+            currentPosition[1] < 0 || currentPosition[1] >= screenHeight)) {
+      std::array<int, 2> oldPosition = coords.getTail();
+      coords.pushFront(currentPosition);
+      if (coords.getIndexInArray(food) == -1) {
+        coords.popBack();
+      } else {
+        food = {xDist(gen), yDist(gen)};
+        addFood = true;
+        score += 1;
       }
-    } else {
-      std::array<int, 2> oldPosition = coords.popBack();
       mvprintw(oldPosition[1], oldPosition[0], " ");
       mvprintw(currentPosition[1], currentPosition[0], "O");
-      coords.pushFront(currentPosition);
       refresh();
-    }
-
-    if (addFood) {
-      mvprintw(yDist(gen), xDist(gen), "X");
-      addFood = false;
     }
 
     napms(50);
   }
 
   endwin();
+  std::cout << "Your score is: " << score << std::endl;
   return 0;
 }

@@ -3,3 +3,4 @@ replit.nix
 Makefile
 .git
 .ccls-cache/*
+main

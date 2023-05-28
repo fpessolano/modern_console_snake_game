@@ -1,4 +1,4 @@
-#include "DynamicList.h"
+#include "../include/DynamicList.h"
 
 template<typename T>
 void DynamicList<T>::pushFront(const T& element) {
@@ -35,4 +35,14 @@ template<typename T>
 int DynamicList<T>::getSize() const {
     int size = elements.size();
     return (size >= 0) ? size : 0;
+}
+
+template<typename T>
+int DynamicList<T>::getIndexInArray(const T& target) const {
+    auto it = std::ranges::find(elements, target);
+    if (it != elements.end()) {
+        return std::distance(elements.begin(), it);
+    } else {
+        return -1;
+    }
 }

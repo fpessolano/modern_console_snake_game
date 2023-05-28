@@ -1,5 +1,5 @@
 # Model Console Snake game 
-About:      an modern ASCII-based smake game 
+About:      an modern ASCII-based snake game 
 Author:     F. Pessolano  
 Version:    v.0.1.0
 

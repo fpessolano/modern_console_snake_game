@@ -1,6 +1,8 @@
 #ifndef DYNAMIC_LIST_H
 #define DYNAMIC_LIST_H
 
+#include <algorithm>
+#include <ranges>
 #include <vector>
 
 template <typename T> class DynamicList {
@@ -19,9 +21,11 @@ public:
   const T &getTail() const;
 
   int getSize() const;
+
+  int getIndexInArray(const T &target) const;
 };
 
 // Include the implementation file
-#include "DynamicList.cc"
+#include "../src/DynamicList.cc"
 
 #endif
