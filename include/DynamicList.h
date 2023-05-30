@@ -5,6 +5,8 @@
 #include <ranges>
 #include <vector>
 
+// TODO add destructor
+
 template <typename T> class DynamicList {
 private:
   std::vector<T> elements;

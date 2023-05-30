@@ -4,24 +4,26 @@
 #include "DynamicList.h"
 #include <array>
 
+// TODO add destructor
+
 class Snake {
 private:
-  DynamicList<std::array<int, 2>> coords;
   int minimumSize;
   int growthMovements;
+  int screenHeight, screenWidth;
+  DynamicList<std::array<int, 2>> coords;
 
 public:
-  Snake(int size, int starting_x, int starting_y, bool vertical);
+  Snake(int size = 5, int starting_x = 0, int starting_y = 0,
+        bool vertical = false);
 
-  Snake(int size, int starting_x, int starting_y);
-
-  Snake(int size);
-
-  Snake();
+  void setScreenSize(int width, int height);
 
   void grow(int moves);
 
-  std::array<int, 2>& move(int x, int y);
+  std::array<int, 2> move(int x, int y);
+
+  std::array<int, 2> getHead();
 };
 
 // Include the implementation file

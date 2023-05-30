@@ -9,4 +9,4 @@ All notable changes to this project will be documented in this file.
  - n/a
 
 #### Added
- - tbd
+ - firsk skeleton of the game (in progress)
