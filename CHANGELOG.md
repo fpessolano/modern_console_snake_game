@@ -9,4 +9,5 @@ All notable changes to this project will be documented in this file.
  - n/a
 
 #### Added
- - firsk skeleton of the game (in progress)
+ - snake movement and food interaction
+ - basic mechanics without true game end

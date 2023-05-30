@@ -6,7 +6,8 @@
 #include <ncurses.h>
 #include <random>
 
-// need to sample the key faster than the movement of the sname
+// need to sample the key faster than the movement of the snake
+// need a generic collision (used screen information?)
 
 int main() {
   // setting screen
@@ -16,12 +17,13 @@ int main() {
   curs_set(0);
   keypad(stdscr, TRUE);
   nodelay(stdscr, TRUE);
-  int screenHeight, screenWidth;
-  getmaxyx(stdscr, screenHeight, screenWidth);
+  const int screenHeight{50};
+  const int screenWidth{30};
+  // getmaxyx(stdscr, screenHeight, screenWidth);
 
   // snake
   Snake snake(6, 10, 10);
-  snake.setScreenSize(80, 80);
+  snake.setScreenSize(screenWidth, screenHeight);
   std::array<int, 2> direction{1, 0};
 
   // food
@@ -68,38 +70,18 @@ int main() {
         snake.move(direction.at(0), direction.at(1))};
     std::array<int, 2> currentPosition{snake.getHead()};
 
+    if (snake.covers(food)) {
+      food = {xDist(gen), yDist(gen)};
+      addFood = true;
+      snake.grow(1);
+      score += 1;
+    }
+
     if (oldPosition.at(0) != -1) {
       mvprintw(oldPosition.at(1), oldPosition.at(0), " ");
     }
     mvprintw(currentPosition.at(1), currentPosition.at(0), "O");
     refresh();
-
-    //   std::array<int, 2> currentPosition{coords.getHead()};
-    //   currentPosition = {currentPosition.at(0) + direction.at(0),
-    //                      currentPosition.at(1) + direction.at(1)};
-    //   std::array<int, 2> oldPosition_real{snake.move(direction.at(0),
-    //   direction.at(1))}; // testing
-
-    //   bool grow = false;
-
-    //   if (not(currentPosition.at(0) < 0 ||
-    //       currentPosition.at(0) >= screenWidth ||
-    //       currentPosition.at(1) < 0 ||
-    //       currentPosition.at(1) >= screenHeight)) {
-    //     std::array<int, 2> oldPosition{coords.getTail()};
-    //     coords.pushFront(currentPosition);
-    //     if (coords.getIndexInArray(food) == -1) {
-    //       coords.popBack();
-    //     } else {
-    //       food = {xDist(gen), yDist(gen)};
-    //       addFood = true;
-    //       snake.grow(1); // testing
-    //       score += 1;
-    //     }
-    //     mvprintw(oldPosition.at(1), oldPosition.at(0), " ");
-    //     mvprintw(currentPosition.at(1), currentPosition.at(0), "O");
-    //     refresh();
-    //   }
 
     napms(50);
   }

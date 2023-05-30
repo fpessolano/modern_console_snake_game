@@ -3,7 +3,7 @@ About:      an modern ASCII-based snake game
 Author:     F. Pessolano  
 Version:    v.0.1.0
 
-NOTE:       nothing useful to see or play yet  
+NOTE:       snake and food work, no real end and crude mechanics  
 
 
 **Description**  

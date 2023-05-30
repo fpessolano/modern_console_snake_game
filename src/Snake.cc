@@ -43,3 +43,7 @@ std::array<int, 2> Snake::move(int x, int y) {
 }
 
 std::array<int, 2> Snake::getHead() { return coords.getHead(); }
+
+bool Snake::covers(std::array<int,2> point) { 
+  return coords.getIndexInArray(point) != -1; 
+}

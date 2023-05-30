@@ -5,6 +5,7 @@
 #include <array>
 
 // TODO add destructor
+// TODO add collision check
 
 class Snake {
 private:
@@ -24,6 +25,8 @@ public:
   std::array<int, 2> move(int x, int y);
 
   std::array<int, 2> getHead();
+
+  bool covers(std::array<int,2> point);
 };
 
 // Include the implementation file
