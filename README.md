@@ -1,7 +1,7 @@
 # Model Console Snake game 
 About:      an modern ASCII-based snake game 
 Author:     F. Pessolano  
-Version:    v.0.1.0
+Version:    v.0.2.0_ip
 
 NOTE:       snake and food work, no real end and crude mechanics  
 
@@ -17,7 +17,7 @@ See requirememts_txt.
 Run main.py 
 
 **Known BUGS**  
- - n/a
+ - somewhere there is a double free to be fixed when ending the program
 
 **Notes**  
  - tbd

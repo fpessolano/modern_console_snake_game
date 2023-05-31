@@ -2,7 +2,6 @@
 #define DYNAMIC_LIST_H
 
 #include <algorithm>
-#include <ranges>
 #include <vector>
 
 // TODO add destructor

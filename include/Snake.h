@@ -18,15 +18,17 @@ public:
   Snake(int size = 5, int starting_x = 0, int starting_y = 0,
         bool vertical = false);
 
-  void setScreenSize(int width, int height);
+  void setPlayfield(int width, int height);
 
   void grow(int moves);
+
+  std::array<int, 2> peek_move(int x, int y);
 
   std::array<int, 2> move(int x, int y);
 
   std::array<int, 2> getHead();
 
-  bool covers(std::array<int,2> point);
+  bool covers(std::array<int, 2> point);
 };
 
 // Include the implementation file

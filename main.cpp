@@ -1,5 +1,7 @@
 // #include "include/DynamicList.h"
+#include "include/Screen.h"
 #include "include/Snake.h"
+#include "include/types.h"
 #include <array>
 #include <cstdlib>
 #include <iostream>
@@ -7,30 +9,29 @@
 #include <random>
 
 // need to sample the key faster than the movement of the snake
-// need a generic collision (used screen information?)
+// need a generic collision either using curses or a matrix
+// need obstacles
+// bombs/food class
+// lasers
+// frame
+// BUG food seem to appear outiside of the frame
 
 int main() {
   // setting screen
-  initscr();
-  cbreak();
-  noecho();
-  curs_set(0);
-  keypad(stdscr, TRUE);
-  nodelay(stdscr, TRUE);
-  const int screenHeight{50};
-  const int screenWidth{30};
-  // getmaxyx(stdscr, screenHeight, screenWidth);
+  const int playfieldHeight{50};
+  const int playfieldWidth{30};
+  Screen screen(playfieldHeight, playfieldWidth);
 
   // snake
   Snake snake(6, 10, 10);
-  snake.setScreenSize(screenWidth, screenHeight);
+  snake.setPlayfield(playfieldWidth, playfieldHeight);
   std::array<int, 2> direction{1, 0};
 
   // food
   std::random_device rd;
   std::mt19937 gen(rd());
-  std::uniform_int_distribution<int> xDist(0, screenWidth - 1);
-  std::uniform_int_distribution<int> yDist(0, screenHeight - 1);
+  std::uniform_int_distribution<int> xDist(0, playfieldWidth - 1);
+  std::uniform_int_distribution<int> yDist(0, playfieldHeight - 1);
   std::array<int, 2> food{yDist(gen), xDist(gen)};
   bool addFood = true;
 
@@ -45,25 +46,16 @@ int main() {
       addFood = false;
     }
 
-    int ch{0};
-    for (int i = 0; i < 3; i++) {
-      ch = getch();
-      switch (ch) {
-      case KEY_UP:
-        direction = {0, -1};
-        break;
-      case KEY_DOWN:
-        direction = {0, 1};
-        break;
-      case KEY_LEFT:
-        direction = {-1, 0};
-        break;
-      case KEY_RIGHT:
-        direction = {1, 0};
-        break;
-      case 27: // escape to stop
-        play = false;
-      }
+    Command command = screen.getCommand();
+    switch (command.cmd) {
+    case END:
+      play = false;
+      break;
+    case MOVE:
+      direction = {command.data[0], command.data[1]};
+      break;
+    case NONE:
+      break;
     }
 
     std::array<int, 2> oldPosition{
@@ -78,15 +70,14 @@ int main() {
     }
 
     if (oldPosition.at(0) != -1) {
-      mvprintw(oldPosition.at(1), oldPosition.at(0), " ");
+      screen.write(oldPosition.at(1), oldPosition.at(0), ' ');
     }
-    mvprintw(currentPosition.at(1), currentPosition.at(0), "O");
+    screen.write(currentPosition.at(1), currentPosition.at(0), 'O');
     refresh();
 
     napms(50);
   }
 
-  endwin();
   std::cout << "Your score is: " << score << std::endl;
 
   return 0;
