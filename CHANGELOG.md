@@ -6,7 +6,7 @@ All notable changes to this project will be documented in this file.
  - n/a
 
 #### Changed 
- - moving objects and screen to their own classes 
+ - moved to python (in progress)
 
 #### Added
  - n/a
