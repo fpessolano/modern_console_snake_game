@@ -4,3 +4,4 @@ Makefile
 .git
 .ccls-cache/*
 main
+__pycache__/*
