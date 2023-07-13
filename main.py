@@ -1,65 +1,53 @@
-# move to python in progress
-
-import page
 import curses
-# import sounds as sounds
+import random
+import snake as sn
+import screen as sc
 
+# setting screen
+playfieldHeight = 30
+playfieldWidth = 60
+screen = sc.Screen(playfieldHeight, playfieldWidth)
 
-VERSION = "v.0.2.0"
+# snake
+snake = sn.Snake(6, 10, 10)
+snake.setPlayfield(playfieldWidth, playfieldHeight)
+direction = [1, 0]
 
-screen = curses.initscr()  # type: ignore
-# sounds = sounds.Bit8()
+# food
+random.seed()
+food = [random.randint(0, playfieldWidth - 1), random.randint(0, playfieldHeight - 1)]
+addFood = True
 
-# Title Page
-static_page = page.Static(width=60, height=20, screen=screen)
-static_page.centred_text_atY(5, "It is modern console snake", True)
-static_page.centred_text_atY(7, VERSION)
-static_page.add_overlapping_text(0, 14, "Press p to play")
-static_page.add_overlapping_text(0, 14, "Press c for controls")
-static_page.draw_border()
-static_page.draw()
-option = static_page.getch([ord("p"), ord("c")])
+# support variables
+play = True
+score = 0
 
-if option == ord("c"):
-    # optional controls page
-    static_page.clear()
-    static_page[12, 5] = ["left arrow\t->\t move left", False]
-    static_page[12, 6] = ["right arrow\t->\t move right", False]
-    static_page[12, 7] = ["down arrow\t->\t move down", False]
-    static_page[12, 8] = ["up arrow\t->\t move up", False]
-    static_page[12, 9] = ["space\t->\t pause game", False]
-    static_page[12, 10] = ["esc\t \t->\t sudden quit", False]
-    static_page.add_overlapping_text(0, 14, "Press any key to play")
-    static_page.add_overlapping_text(0, 14, "")
-    static_page.draw()
-    static_page.getch([])
+while play:
+    if addFood:
+        screen.write(food[1], food[0], 'X')
+        addFood = False
 
-# static_page.clear(False)
-# sounds.play_music()
+    command = screen.getCommand()
+    if command.cmd == sc.CommandType.END:
+        play = False
+    elif command.cmd == sc.CommandType.MOVE:
+        direction = command.data
 
-# while True:
-#     true game loop
+    oldPosition = snake.move(direction[0], direction[1])
+    currentPosition = snake.getHead()
 
-#     sounds.stop_music()
-#     sounds.gameover.play()
-#     screen.clear()
-#     screen.refresh()
-#     score, level = new_game.score()
+    if snake.covers(food):
+        food = [random.randint(0, playfieldWidth - 1), random.randint(0, playfieldHeight - 1)]
+        addFood = True
+        snake.grow(1)
+        score += 1
 
-#     static_page.clear(False)
-#     static_page.centred_text_atY(5, "GAME OVER !!!")
-#     static_page.centred_text_atY(7, "your score: " + str(score))
-#     static_page.centred_text_atY(10, "your level: " + str(level))
-#     static_page.add_overlapping_text(0, 14, "Press p to play")
-#     static_page.add_overlapping_text(0, 14, "Press q to quit")
-#     static_page.draw_border()
-#     static_page.draw()
-#     option = static_page.getch([ord("p"), ord("q")])
-#     static_page.clear(False)
-#     if option == ord("q"):
-#         break
-#     sounds.gameover.stop()
-#     sounds.play_music()
+    if oldPosition[0] != -1:
+        screen.write(oldPosition[1], oldPosition[0], ' ')
+    screen.write(currentPosition[1], currentPosition[0], 'O')
+    screen.stdscr.refresh()
 
-static_page.clear(False)
-curses.endwin()  # type: ignore
+    curses.napms(50)
+
+print("Your score is:", score)
+

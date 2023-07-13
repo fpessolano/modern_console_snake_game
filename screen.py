@@ -1,6 +1,7 @@
 import curses
+from enum import Enum
 
-class CommandType:
+class CommandType(Enum):
     NONE = 0
     END = 1
     MOVE = 2
