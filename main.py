@@ -1,12 +1,12 @@
 import curses
 import random
 import snake as sn
-import screen as sc
+import graphics as gp
 
 # setting screen
 playfieldHeight = 30
 playfieldWidth = 60
-screen = sc.Screen(playfieldHeight, playfieldWidth)
+screen = gp.Screen(playfieldHeight, playfieldWidth)
 
 # snake
 snake = sn.Snake(6, 10, 10)
@@ -28,9 +28,9 @@ while play:
         addFood = False
 
     command = screen.getCommand()
-    if command.cmd == sc.CommandType.END:
+    if command.cmd == gp.CommandType.END:
         play = False
-    elif command.cmd == sc.CommandType.MOVE:
+    elif command.cmd == gp.CommandType.MOVE:
         direction = command.data
 
     oldPosition = snake.move(direction[0], direction[1])
