@@ -6,7 +6,7 @@ All notable changes to this project will be documented in this file.
  - n/a
 
 #### Changed 
- - moved to python (in progress)
+ - moved to python
 
 #### Added
  - n/a
