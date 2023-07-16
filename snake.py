@@ -57,6 +57,10 @@ class Snake:
 
     def covers(self, point):
         return self.coords.getIndexInArray(point) != -1
+    
+    def __len__(self):
+        return self.coords.getSize()
+    
 
 if __name__ == "__main__":
     # Example usage
