@@ -3,7 +3,7 @@ About:      an modern ASCII-based snake game
 Author:     F. Pessolano  
 Version:    v.0.2.0_ip
 
-NOTE:       not working as currently, ditching cpp for python  
+NOTE:       in progress, basic gameplay only  
 
 
 **Description**  
