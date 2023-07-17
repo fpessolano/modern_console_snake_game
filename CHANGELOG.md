@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [0.5.1]
+#### Fixed 
+ - wrong version on title
+
+#### Added
+ - terminal window size
+
 ## [0.5.0]
 #### Fixed 
  - bug causing death when reversing direction

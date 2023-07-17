@@ -1,7 +1,7 @@
 # Model Console Snake game 
 About:      an modern ASCII-based snake game 
 Author:     F. Pessolano  
-Version:    v.0.5.0
+Version:    v.0.5.1
 
 NOTE:       game is fully functional
 
