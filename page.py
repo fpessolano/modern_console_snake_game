@@ -16,7 +16,10 @@ class Static:
                height=20,
                screen=None,
                change_speed=0.01,
-               reveal_time=0.05):
+               reveal_time=0.05,
+               padding=[15, 3],):
+    width += max(15, padding[0])
+    height += max(3, padding[1])
     self.__stdscr = screen if screen else curses.initscr()
     self.__delete = False if screen else True
     max_y, max_x = self.__stdscr.getmaxyx()

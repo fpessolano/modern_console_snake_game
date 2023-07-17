@@ -3,13 +3,13 @@
 import page
 import curses
 import game
-# import sounds as sounds
+import sounds as sounds
 
 
 VERSION = "v.0.3.0"
 
 screen = curses.initscr()  # type: ignore
-# sounds = sounds.Bit8()
+sounds = sounds.Bit8()
 
 # Title Page
 static_page = page.Static(width=60, height=20, screen=screen)
@@ -36,14 +36,14 @@ if option == ord("c"):
     static_page.getch([])
 
 static_page.clear(False)
-# sounds.play_music()
+sounds.play_music()
 
 while True:
     # true game loop
-    score = game.play(screen)
+    score = game.play(screen, sounds)
 
-    # sounds.stop_music()
-    # sounds.gameover.play()
+    sounds.stop_music()
+    sounds.gameover.play()
     screen.clear()
     screen.refresh()
 
@@ -58,8 +58,8 @@ while True:
     static_page.clear(False)
     if option == ord("q"):
         break
-    # sounds.gameover.stop()
-    # sounds.play_music()
+    sounds.gameover.stop()
+    sounds.play_music()
 
 static_page.clear(False)
 curses.endwin()  # type: ignore

@@ -3,8 +3,9 @@ import random
 import math
 import snake as sn
 import graphics as gp
+import sounds as sounds
 
-def play(screen):
+def play(screen, sounds):
     curses.cbreak()
     curses.curs_set(0)
     curses.noecho()
@@ -35,6 +36,7 @@ def play(screen):
     frame_delay_max = 100
     maximum_blockage = 5
     blockage = maximum_blockage
+    speed_up_sound = False
 
     gameboard.setup()
 
@@ -48,6 +50,9 @@ def play(screen):
             frame_delay = frame_delay_max
         elif (steps_to_food := steps_to_food - 1) < 0:
             frame_delay = max(frame_delay - 1, frame_delay_max // 3)
+            if not speed_up_sound:
+                sounds.speedup.play()
+                speed_up_sound = True
 
         gameboard.print_speed(1000//frame_delay)
 
@@ -56,7 +61,8 @@ def play(screen):
             case gp.CommandType.END:
                 play = False
             case gp.CommandType.MOVE:
-                direction = command.data
+                if direction[0] != - command.data[0] and direction[1] != - command.data[1]:
+                    direction = command.data
             case gp.CommandType.PAUSE:
                 gameboard.pause()
                 while True:
@@ -71,6 +77,8 @@ def play(screen):
             food = [random.randint(0, playfieldWidth - 1),
                     random.randint(0, playfieldHeight - 1)]
             addFood = True
+            sounds.eaten.play()
+            speed_up_sound = False
             snake.grow(2)
             score += 1
             frame_delay_max = max(30, frame_delay_max -
@@ -94,7 +102,3 @@ def play(screen):
     curses.init_pair(2, curses.COLOR_RED, curses.COLOR_BLACK)
     return score
 
-if __name__ == '__main__':
-    screen = curses.initscr()
-    score = play(screen)
-    print("Your score is:", score)
