@@ -49,6 +49,7 @@ class Snake:
                 oldPosition = self.coords.popBack()
             else:
                 self.growthMovements -= 1
+                oldPosition = [-2, -2]
 
         return oldPosition
 
