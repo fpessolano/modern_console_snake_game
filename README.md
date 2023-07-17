@@ -1,9 +1,9 @@
 # Model Console Snake game 
 About:      an modern ASCII-based snake game 
 Author:     F. Pessolano  
-Version:    v.0.3.0_ip
+Version:    v.0.3.0
 
-NOTE:       in progress, basic gameplay only  
+NOTE:       game works, needs some finishing touches
 
 
 **Description**  
@@ -16,7 +16,7 @@ See requirememts_txt.
 Run main.py 
 
 **Known BUGS**  
- - tbd
+ - n/a
 
 **Notes**  
  - tbd

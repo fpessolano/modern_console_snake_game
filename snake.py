@@ -29,8 +29,7 @@ class Snake:
         currentPosition[1] += y
 
         if self.coords.getIndexInArray(currentPosition) != -1:
-            currentPosition[0] -= 2 * x
-            currentPosition[1] -= 2 * y
+            return invalidMove
 
         if (0 <= currentPosition[0] < self.screenWidth and
                 0 <= currentPosition[1] < self.screenHeight):

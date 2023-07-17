@@ -3,10 +3,10 @@ All notable changes to this project will be documented in this file.
 
 ## [0.3.0]
 #### Fixed 
- - n/a
+ - snake against itself leads to game over
 
 #### Changed 
- - n/a
+ - full game without sounds and need for non game pages refresh
 
 #### Added
  - death if stuck (in progress)
