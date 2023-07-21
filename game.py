@@ -49,9 +49,9 @@ def play(screen, sounds):
                 1.5 * math.sqrt((head_position[0] - food[0])**2 + (head_position[1] - food[1])**2))
             frame_delay = frame_delay_max
         elif (steps_to_food := steps_to_food - 1) < 0:
-            frame_delay = max(frame_delay - 1, frame_delay_max // 3)
+            frame_delay = max(frame_delay - 1, frame_delay_max // 4)
             if not speed_up_sound:
-                sounds.speedup.play()
+                # sounds.speedup.play()
                 speed_up_sound = True
 
         gameboard.print_speed(1000//frame_delay)

@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 #### Fixed 
  - wrong version on title
 
+ #### Changed 
+ - removed speed-up sound
+ - slowed down acceleration in case of late food eating
+
 #### Added
  - terminal window size
 
