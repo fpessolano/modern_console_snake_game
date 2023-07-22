@@ -8,7 +8,7 @@ import repeat_event as rpe
 class Static:
   """
     This is a class that can be used to build static pages such as
-    welcomme and controls pages.
+    welcome and controls pages.
     """
   
   def __init__(self,

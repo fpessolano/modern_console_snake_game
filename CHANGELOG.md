@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file.
 ## [0.5.1]
 #### Fixed 
  - wrong version on title
+ - some typos removed
 
  #### Changed 
  - removed speed-up sound
